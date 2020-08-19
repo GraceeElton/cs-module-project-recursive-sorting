@@ -6,22 +6,48 @@ arrB = [6, 7, 8, 9, 10]
 def merge(arrA, arrB):
     elements = len(arrA) + len(arrB)
     merged_arr = [0] * elements
+    arrA_idx = 0
+    arrB_idx = 0
 
-    # starting at the beginning of `a` and `b`
-    # compare the next value of each
-    # add smallest to `merged_arr`
-    if arrB[0] < arrB[0]:
-        merged_arr.append(arrB[0])
-    else:
-        merge(arrA[0] + 1, arrB[0] + 1)
+    # loop over the merged_arr
+    for idx in range(elements):
+        # check if we are at the end of one of the arrays
+        # if so, just use other array
+        if arrA_idx >= len(arrA):
+            merged_arr[idx] = arrB[arrB_idx]
+            arrB_idx += 1
+        elif arrB_idx >= len(arrB):
+            merged_arr[idx] = arrA[arrA_idx]
+            arrA_idx += 1
 
-    return print(merged_arr, "this is the merged arrary")
+         # compare the first element of each array
+        #  smaller element goes into merged array
+        elif arrA[arrA_idx] < arrB[arrB_idx]:
+            merged_arr[idx] = arrA[arrA_idx]
+            arrA_idx += 1
+        else:
+            merged_arr[idx] = arrB[arrB_idx]
+            arrB_idx += 1
+
+    return merged_arr
+
+    # compare first element of each array
+    # the smalled one goes into merge array
 
 # TO-DO: implement the Merge Sort function below recursively
 
 
 def merge_sort(arr):
-    # Your code here
+    if len(arr) <= 1:
+        return arr
+    else:
+        midpoint = len(arr) // 2
+        # recurse on the right
+        left = merge_sort(arr[:midpoint])
+        # and left halves
+        right = merge_sort(arr[midpoint:])
+        # put things back together
+        arr = merge(left, right)
 
     return arr
 

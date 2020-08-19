@@ -1,18 +1,22 @@
 # TO-DO: Implement a recursive implementation of binary search
 def binary_search(arr, target, start, end):
     # Your code here
-    start = 0
-    end = len(arr) - 1
-    while start <= end:
-        middle = (start + end) // 2
-        guess = arr[middle]
-        if guess == target:
-            return middle
+    # create a middle
+    middle = (start + end) // 2
+    # check if the target is above or below the middle
 
+    if len(arr) == 0:
+        return -1  # array empty
+    elif start > end:
+        return -1  # not found
+    elif arr[middle] == target:
+        return middle
+    else:
+        if target < arr[middle]:
+            end = middle-1  # eliminate RHS
         else:
-            binary_search(len(arr)-1, target, start, end)
-
-    return -1
+            start = middle+1  # eliminate LHS
+    return binary_search(arr, target, start, end)
 
     # STRETCH: implement an order-
     # agnostic binary search
